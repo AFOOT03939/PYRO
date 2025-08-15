@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="~/images/pyro.png" />
+    <title>@ViewData["Title"] - Pyro</title>
+</head>
+<body onload="hide();" onresize="hide();">
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <div class="hd_a" id="left">
+            <a asp-area="" asp-controller="Home" asp-action="Index" id="logo"></a>
+            <div id="search">
+                <div id="search_icon"></div>
+                <input type="text" name="search" id="search_input" placeholder="Buscar en Pyro">
+            </div>
+        </div>
+        <div class="hd_a" id="center">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="hd_b"><div class="hd_c" id="hd_c1"></div></a>
+            <div class="hd_b"><div class="hd_c" id="hd_c2"></div></div>
+            <div class="hd_b"><div class="hd_c" id="hd_c3"></div></div>
+            <div class="hd_b"><div class="hd_c" id="hd_c4"></div></div>
+        </div>
+        <div class="hd_a" id="right">
+            <div class="hd_d" id="hd_d1"></div>
+            <div class="hd_d" id="hd_d2"></div>
+            <div onclick="account_settings()" class="hd_d" id="hd_d3"></div>
+        </div>
+    </div>
+    <div id="acc_options">
+        
+        
+        @if (ViewBag.message != "NA")
+        {
+            <a class="a_option" asp-controller="Home" asp-action="Profile">
+                <div class="a_icon" id="a_icon_perfil"></div><div class="a_text">Mi cuenta</div>
+            </a>
+        <div class="a_option">
+            <div class="a_icon" id="a_icon_posts"></div><div class="a_text">Mis publicaciones</div>
+        </div>
+        <div class="a_option">
+            <div class="a_icon" id="a_icon_groups"></div><div class="a_text">Mis grupos</div>
+        </div>
+        <div class="a_option">
+            <div class="a_icon" id="a_icon_foll"></div><div class="a_text">Seguidores</div>
+        </div>
+            <a class="a_option" asp-controller="Home" asp-action="CerrarSesion">
+                <div class="a_icon" id="a_icon_close"></div><div class="a_text">Cerrar sesión</div>
+            </a>
+        } else
+        {
+            <a class="a_option" asp-controller="Home" asp-action="Login"  id="a_option_perfil">
+                <div class="a_icon" id="a_icon_opens"></div><div class="a_text">Iniciar sesión</div>
+            </a>
+        }
+    </div>
+
+    <!-- BODY SECTIONS -->
+    @RenderBody()
+
+
+    <script src="~/js/script_index.js"></script>
+    <script>
+        function account_settings() {
+            let popup = document.getElementById("acc_options");
+            let currentDisplay = window.getComputedStyle(popup).display;
+            if (currentDisplay === "none") {
+                popup.style.display = "block";
+            } else {
+                popup.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+</html>

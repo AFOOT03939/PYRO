@@ -1,0 +1,48 @@
+﻿@model Pyro.Models.UsuarioModel
+@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@{
+
+    ViewData["Title"] = "@" + Model.ApodoUsuario;
+}
+
+
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
+    <link rel="icon" type="image/png" href="~/images/pyro.png" />
+    <meta charset="utf-8">
+</head>
+<body onload="hide();" onresize="hide();">
+
+    <!-- BODY SECTIONS -->
+    <div id="profile_sections">
+        <div id="pro_header">
+            <div id="pro_back"></div>
+            <div id="pro_photo"></div>
+            
+                @if (Model != null)
+                {
+                <div id="pro_nick">@Model.ApodoUsuario</div>
+                <div id="pro_friends">999 seguidores</div>
+                } else
+                {
+                <div id="pro_nick">Usuario no existe</div>
+                <div id="pro_name">&commat;ohno_ale</div>
+                <div id="pro_friends">999 seguidores</div>
+                }
+                
+            
+            
+        </div>
+        <div id="pro_content"></div>
+
+    </div>
+
+
+    <script src="/js/script_index.js"></script>
+</body>
+</html>

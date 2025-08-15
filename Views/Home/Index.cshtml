@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@{
+
+    ViewData["Title"] = "Inicio";
+}
+@model Pyro.Models.UserPostModel
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
+    <link rel="icon" type="image/png" href="~/images/pyro.png" />
+    <meta charset="utf-8">
+</head>
+<body onload="hide();" onresize="hide();">
+
+    <!--TYPE POST-->
+    <div class="typepost"></div>
+
+    <!-- BODY SECTIONS -->
+    <div class="c_sections">
+        <div id="left_sec" class="section"></div>
+        <div id="center_sec" class="section">
+            @if (Model.Usuario != null)
+                
+            {
+            <div id="mynewpost">
+                <div id="newpost_photo"></div>
+                <div id="label1"><p>
+                            @Model.Usuario.ApodoUsuario, ¿quieres expresar algo?
+                    </p>
+                </div>
+            </div>
+            }
+            <!--POST-->
+            @if (Model.Posts != null)
+            {
+                @for (int i = Model.Posts.Count - 1; i >= 0; i--)
+                {
+                    <div class="post">
+                        <div class="post_header">
+                        <div class="post_user_photo"></div>
+                        <div class="post_info">
+                            <p>
+                                    <span class="usuario">&commat;@Model.Authors[i]</span>
+                                    -
+                                    <span class="info-post">@Model.Names[i]</span>
+                                <br/>
+                                <span class="info-post">Publicado el @Model.Posts[i].FechaPost</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="post_body">
+                        <div class="post_text">
+                            <p class="pa">
+                                    @{
+                                        var desc = Model.Posts[i].DescPost ?? "";
+                                        var mostrar = desc.Length > 500 ? desc.Substring(0, 500) + "..." : desc;
+                                    }
+                                    @mostrar
+
+                                    @if (desc.Length > 500)
+                                    {
+                                        <a href="https://www.google.com">Ver más</a>
+                                    }
+                                    
+                            </p>
+
+                        </div>
+                        <div class="post_gallery">
+                            <img src="images/back.jpeg">
+                            <div class="gallery_n"><span>+9</span></div>
+                        </div>
+                        <div class="post_bar">
+                            <div class="post_reacts">9999 reacciones</div>
+                            <div class="post_actions">
+                                <div class="act_like">
+                                    <div class="icon" id="icon1"></div>Me gusta
+                                </div>
+                                <div class="act_com">
+                                    <div class="icon" id="icon2"></div>Comentar
+                                </div>
+                                <div class="act_share">
+                                    <div class="icon" id="icon3"></div>Compartir
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+        </div>
+        <div id="right_sec" class="section"></div>
+
+    </div>
+
+
+    <script src="/js/script_index.js"></script>
+</body>
+</html>

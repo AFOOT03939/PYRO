@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Crear cuenta";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
+    <link rel="icon" type="image/png" href="~/images/pyro.png" />
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <!-- BODY SECTIONS -->
+    <div class="body_reg">
+        <div id="left_reg">
+            <div id="logo_reg">
+                <div id="img_reg"></div>Pyro
+            </div>
+            <div id="text_reg">
+                No nos importa quién eres, solo lo que tienes que decir.
+                <p id="sub_reg">
+                    Crea tu cuenta únicamente con un nombre de usuario, un apodo y una
+                    contraseña.
+                </p>
+            </div>
+        </div>
+        <div id="right_reg">
+            <!--LOGIN-->
+            <div class="register">
+                Completa el siguiente formulario
+                <div class="input-container">
+                    <input autocomplete="off" type="text" id="apodo" placeholder=" " required>
+                    <label for="username">Escribe un apodo o pseudónimo</label>
+                </div>
+                <div class="input-container">
+                    <input autocomplete="off" type="password" id="password1" placeholder=" " required>
+                    <label for="password">Crea una contraseña</label>
+                    <div class="eye" id="eye1" onload="password(1)" onclick="password(1)" title="Mostrar/ocultar contraseña"></div>
+                </div>
+                <div class="input-container">
+                    <input autocomplete="off" type="password" id="password2" placeholder=" " required>
+                    <label for="password">Confirma tu contraseña</label>
+                    <div class="eye" id="eye2" onload="password(2)" onclick="password(2)" title="Mostrar/ocultar contraseña"></div>
+                </div>
+                <a id="continuar" onclick="submitForm()">Crear cuenta</a>
+                <a style="margin-top:10px;" asp-controller="Home" asp-action="Login">¿Ya tienes una cuenta?</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/js/script_index.js"></script>
+    <script type="text/javascript">
+
+        function submitForm() {
+            var apodo = document.getElementById("apodo").value;
+            var contrasena = document.getElementById("password1").value;
+            var confirmacion = document.getElementById("password2").value;
+            if (contrasena == confirmacion){
+                var url = '@Url.Action("AgregarUsuario", "Home")' + '?apodo=' + encodeURIComponent(apodo) + '&contrasena=' + encodeURIComponent(contrasena);
+                window.location.href = url;
+            } else {
+                alert("No has confirmado la contraseña. Vuelve a intentarlo.");
+                location.reload();
+            }
+                
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitForm();
+            }
+        });
+
+    </script>
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script>
+            var mensaje = '@ViewBag.Message';
+            alert(mensaje);
+        </script>
+    }
+
+</body>
+</html>

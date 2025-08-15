@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Iniciar sesión";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true">
+    <link rel="icon" type="image/png" href="~/images/pyro.png" />
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <!--LOGIN-->
+    <div class="login">
+        <div id="head_login">
+            <div id="logo_login"></div>Pyro
+        </div>
+        <div id="neck_login">Sin filtros. Sin restricciones. Exprésate y enciende tu voz con Pyro.</div>
+        <div id="body_login">
+            Iniciar sesión
+            <div class="input-container">
+                <input autocomplete="off" type="text" id="apodo" placeholder=" " required>
+                <label for="username">Ingresa tu apodo</label>
+            </div>
+            <div class="input-container">
+                <input autocomplete="off" type="password" id="password1" placeholder=" " required>
+                <label for="password">Ingresa tu contraseña</label>
+                <div id="eye1" class="eye" onload="password(1)" onclick="password(1)" title="Mostrar/ocultar contraseña"></div>
+            </div>
+            <a id="continuar" onclick="submitForm()">Continuar</a>
+            <div id="alternative1">¿No tienes cuenta? <a asp-area="" asp-controller="Home" asp-action="Register">Regístrate</a></div>
+        </div>
+    </div>
+
+
+    <script src="~/js/script_index.js"></script>
+    <script type="text/javascript">
+
+        function submitForm() {
+            var apodo = document.getElementById("apodo").value;
+            var contrasena = document.getElementById("password1").value;
+            var url = '@Url.Action("BuscarUsuario", "Home")' + '?apodo=' + encodeURIComponent(apodo) + '&contrasena=' + encodeURIComponent(contrasena);
+            window.location.href = url;
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitForm();
+            }
+        });
+
+    </script>
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script>
+            var mensaje = '@Html.Raw(ViewBag.Message)';
+            alert(mensaje);
+        </script>
+    }
+</body>
+</html>
